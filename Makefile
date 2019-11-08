@@ -2,6 +2,8 @@ CC=arm-linux-gnueabihf-gcc
 TEAM=5024
 IP_ADDR=roborio-$(TEAM)-frc.local
 NI_VERSION=v2019-12
+NI_FLAGS=-pthread -Llib # -lwpiHal -lwpiutil -lvisa -lRoboRIO_FRC_ChipObject -lNiRioSrv -lniriosession -lniriodevenum -lNiFpgaLv -lNiFpga -lFRC_NetworkCommunication
+NI_LIBS=
 
 bootstrap:
 	@echo ":: Fetching NI libraries"
@@ -34,7 +36,7 @@ compile:
 	@make -s clean
 
 # Compile and link
-	$(CC) robot.c -o robot-program
+	$(CC) robot.c $(NI_LIBS) $(NI_FLAGS) -o robot-program
 
 find-robot:
 	@echo ":: Trying to find RoboRIO owned by team $(TEAM)"
